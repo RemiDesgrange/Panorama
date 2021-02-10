@@ -1,7 +1,7 @@
 <template>
   <div class="photos-container">
-    <div v-for="pu in photosUrl" :key="pu" class="photo-container">
-      <photo :src="pu" />
+    <div v-for="p in photos" :key="p.id" class="photo-container">
+      <photo :src="p.url" />
     </div>
   </div>
 </template>
@@ -9,24 +9,25 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Photo from './Photo.vue'
+import { mapState, mapActions } from 'vuex'
 
 export default defineComponent({
   name: 'Photos',
   components: {
     Photo
   },
-  data() {
-    return {
-      photosUrl: [] as string[]
-    } 
+  computed: {
+    ...mapState({
+      photos: 'photos'
+    })
+  },
+  methods: {
+    ...mapActions([
+      'fetchPhotos'
+    ])
   },
   mounted() {
-    for (let x=400; x<=410; x++) {
-      this.photosUrl.push(`https://picsum.photos/seed/${x}/400/100`)
-    }
-    for (let x=400; x<=410; x++) {
-      this.photosUrl.push(`https://picsum.photos/seed/${x}/400/500`)
-    }
+    this.fetchPhotos()
   }
 })
 </script>
@@ -34,7 +35,7 @@ export default defineComponent({
 <style scoped>
 .photos-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(100px, 400px));
   justify-items: center;
   align-items: center;
   column-gap: 5px;

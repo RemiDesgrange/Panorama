@@ -1,15 +1,30 @@
 <template>
-    <picture >
-      <img 
+  <div class="img-container">
+    <picture>
+      <img
         :class="classList.join(' ')"
-        :src="src" 
+        :src="src"
         loading="lazy"
-        @load="loaded()" 
-        @click="clicked()" 
-        max-width="400"
-        max-height="400"
+        @load="loaded()"
+        @click="clicked()"
       />
     </picture>
+    <button class="img-info">info</button>
+    <button class="img-display-modal">Display modal</button>
+    <input type="checkbox" class="img-selector" v-model="isSelected">
+  </div>
+  <!-- modal -->
+  <teleport to="body">
+      <div v-if="modalOpen" class="modal">
+        <div>
+          I'm a teleported modal!
+          (My parent is "body")
+          <button @click="modalOpen = false">
+            Close
+          </button>
+        </div>
+      </div>
+    </teleport>
 </template>
 
 <script lang="ts">
@@ -18,25 +33,15 @@ import { defineComponent } from "vue";
 export default defineComponent({
     name: 'Photo',
     props: {
-        src: {
-          type: String,
-          required: true
-        },
-        width: {
-          type: Number,
-          required: false,
-          default: 100
-        },
-        height: {
-          type:  [String, Number],
-          required: false,
-          default: "auto"
-        }
+      src: {
+        type: URL,
+        required: true
+      }
     },
     data() {
       return {
-        isImageLoaded: false,
-        classList: ['loader']
+        classList: ['loader'] as string[],
+        isSelected: false
       }
     },
     methods: {
@@ -44,7 +49,6 @@ export default defineComponent({
         console.log("pompom")
       },
       loaded () {
-        this.isImageLoaded = true
         this.classList = this.classList.filter((c) => c !== 'loader')
         this.classList.push('img-loaded')
       }
@@ -53,10 +57,45 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.img-container {
+  position: relative;
+}
+
+.img-info,
+.img-display-modal,
+.img-selector {
+  position: absolute;
+  display: none;
+}
+
+.img-info {
+  top: 2%;
+  right: 2%;
+}
+.img-selector {
+  top: 2%;
+  right: 20%;
+}
+
+.img-display-modal {
+  top: 50%;
+  right: 50%;
+}
+
+.img-container:hover .img-info,
+.img-container:hover .img-display-modal,
+.img-container:hover .img-selector {
+    display: inline-block;
+}
+
+
 img {
+  display: block;
+  max-width: 400px;
+  max-height: 400px;
   opacity: 1;
   box-shadow: rgb(105, 105, 105) 2px 2px 1px;
-  margin: 3;
+  margin: 2px;
   border-radius: 5px;
 }
 
@@ -131,6 +170,4 @@ img {
     box-shadow: 0 2.5em 0 0;
   }
 }
-
-
 </style>

@@ -1,15 +1,15 @@
 <template>
-  <photos />
+  <router-view />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Photos from './components/Photos.vue'
+import { RouterView } from 'vue-router'
 
 export default defineComponent({
   name: 'App',
   components: {
-    Photos
+    RouterView
   }
 })
 </script>
