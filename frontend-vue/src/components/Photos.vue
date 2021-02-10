@@ -17,8 +17,8 @@ export default defineComponent({
   },
   data() {
     return {
-      photosUrl: []
-    }
+      photosUrl: [] as string[]
+    } 
   },
   mounted() {
     for (let x=400; x<=410; x++) {

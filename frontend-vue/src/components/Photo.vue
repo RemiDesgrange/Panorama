@@ -19,8 +19,8 @@ export default defineComponent({
     name: 'Photo',
     props: {
         src: {
-            type: String,
-            required: true
+          type: String,
+          required: true
         },
         width: {
           type: Number,
@@ -41,11 +41,11 @@ export default defineComponent({
     },
     methods: {
       clicked () {
-          console.log("pompom")
+        console.log("pompom")
       },
       loaded () {
         this.isImageLoaded = true
-          this.classList = this.classList.filter((c) => c !== 'loader')
+        this.classList = this.classList.filter((c) => c !== 'loader')
         this.classList.push('img-loaded')
       }
     },
