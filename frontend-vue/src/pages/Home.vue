@@ -1,13 +1,19 @@
 <template>
-  <app-header />
-
+  <div v-if="isAuthenticated">
+      <!-- show your album -->
+  </div>
+  <div v-else>
+    <!-- show something else -->
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import AppHeader from "../components/AppHeader.vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
-  components: { AppHeader },
-  name: 'Home'
+  name: 'Home',
+  computed: {
+    ...mapGetters(['isAuthenticated'])
+  }
 })
 </script>

@@ -28,7 +28,8 @@ export interface State {
   photos: PhotoStore[]
   selectedPhotos: PhotoStore[]
   user: UserStore | null
-  notifications: NotificationStore[]
+  notifications: NotificationStore[],
+  isSidebarActive: boolean,
 }
 
 export default createStore<State>({
@@ -36,7 +37,8 @@ export default createStore<State>({
     photos: [],
     selectedPhotos: [],
     user: null,
-    notifications: []
+    notifications: [],
+    isSidebarActive: false,
   },
   mutations: {
     setNotification(state, notification: NotificationStore) {
@@ -44,6 +46,12 @@ export default createStore<State>({
     },
     deleteNotification(state, notificationId) {
       state.notifications = state.notifications.filter(n => n.id !== notificationId)
+    },
+    toggleSidebar(state) {
+      state.isSidebarActive = !state.isSidebarActive
+    },
+    closeSidebarPanel(state) {
+      state.isSidebarActive = false
     }
   },
   getters: {
