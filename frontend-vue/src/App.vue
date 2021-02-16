@@ -19,3 +19,15 @@ export default defineComponent({
   }
 })
 </script>
+
+<style>
+body {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+a:hover {
+  color: rgb(105,105,105);
+}
+a:visited {
+  color: #000;
+}
+</style>

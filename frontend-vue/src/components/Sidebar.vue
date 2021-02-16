@@ -1,11 +1,5 @@
 <template>
   <div class="sidebar">
-    <!-- <div
-      class="sidebar-backdrop"
-      v-if="isSidebarActive"
-      @click="closeSidebarPanel"
-    /> -->
-
     <transition name="slide">
       <div v-if="isSidebarActive" class="sidebar-panel">
         <ul>
@@ -68,5 +62,4 @@ ul > li {
   display: block;
   padding-bottom: 0.5em;
 }
-
 </style>

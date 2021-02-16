@@ -1,8 +1,8 @@
 <template>
   <nav>
     <ul>
-      <li><router-link :to="{ name: 'home' }">Panorama</router-link> </li>
-      <li><router-link :to="{ name: 'albums' }">Your Albums</router-link></li>
+      <li class='link'><router-link :to="{ name: 'home' }">Panorama</router-link></li>
+      <li class='link'><router-link :to="{ name: 'albums' }">Your Albums</router-link></li>
       <li><button @click="showNotif">Show new Notif</button></li>
     </ul>
     <div class="user-container">
@@ -65,14 +65,27 @@ nav {
 }
 li {
   display: inline-block;
-  margin: 3px;
-  padding: 12px;
 }
 
 nav ul {
   list-style-type: none;
 
 }
+
+nav ul li{
+  padding: 12px;
+}
+
+.link:hover {
+  background-color: rgb(105, 105, 105);
+  border-radius: 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+
 /**
 Burger
 */
