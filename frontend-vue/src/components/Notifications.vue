@@ -42,14 +42,14 @@ p {
 }
 .severity-0 {
   background: rgba(red, 0.2);
-  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.9);
+  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5);
 }
 .severity-1 {
   background: rgba(yellow, 0.2);
-  box-shadow: 0 5px 15px rgba(255, 255, 0, 0.9);
+  box-shadow: 0 5px 15px rgba(255, 255, 0, 0.5);
 }
 .severity-2 {
   background: rgba(green, 0.2);
-  box-shadow: 0 5px 15px rgba(0, 255, 0, 0.9);
+  box-shadow: 0 5px 15px rgba(0, 255, 0, 0.5);
 }
 </style>
