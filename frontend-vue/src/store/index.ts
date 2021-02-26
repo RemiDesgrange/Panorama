@@ -64,7 +64,7 @@ export default createStore<State>({
       for (let x=400; x<=450; x++) {
         state.photos.push({
           id: x.toString(),
-          url: new URL(`https://picsum.photos/seed/${x}/200/200`)
+          url: new URL(`https://picsum.photos/seed/${x}/1000/1000`)
         })
       }
     },

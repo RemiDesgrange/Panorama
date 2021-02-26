@@ -3,35 +3,31 @@
     <picture>
       <img
         :class="classList.join(' ')"
+        class="img-container"
         :src="src"
         loading="lazy"
         @load="loaded()"
-        @click="clicked()"
+        @click="modalOpen=true"
       />
     </picture>
     <button class="img-info">info</button>
-    <button class="img-display-modal">Display modal</button>
     <input type="checkbox" class="img-selector" v-model="isSelected">
   </div>
   <!-- modal -->
   <teleport to="body">
-      <div v-if="modalOpen" class="modal">
-        <div>
-          I'm a teleported modal!
-          (My parent is "body")
-          <button @click="modalOpen = false">
-            Close
-          </button>
-        </div>
-      </div>
-    </teleport>
+    <modal-photo :open="modalOpen" :src="src" @close="modalOpen =false"/>
+  </teleport>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import ModalPhoto from './ModalPhoto.vue';
 
 export default defineComponent({
     name: 'Photo',
+    components: {
+      ModalPhoto
+    },
     props: {
       src: {
         type: URL,
@@ -41,12 +37,13 @@ export default defineComponent({
     data() {
       return {
         classList: ['loader'] as string[],
-        isSelected: false
+        isSelected: false,
+        modalOpen: false,
       }
     },
     methods: {
       clicked () {
-        console.log("pompom")
+        console.log(`image ${this.src} clicked`)
       },
       loaded () {
         this.classList = this.classList.filter((c) => c !== 'loader')
@@ -59,6 +56,8 @@ export default defineComponent({
 <style scoped>
 .img-container {
   position: relative;
+  max-width: 400px;
+  max-height: 400px;
 }
 
 .img-info,
@@ -72,27 +71,26 @@ export default defineComponent({
   top: 2%;
   right: 2%;
 }
-.img-selector {
-  top: 2%;
-  right: 20%;
-}
 
 .img-display-modal {
   top: 50%;
   right: 50%;
 }
 
-.img-container:hover .img-info,
-.img-container:hover .img-display-modal,
-.img-container:hover .img-selector {
-    display: inline-block;
+.img-selector {
+  top: 2%;
+  right: 20%;
 }
 
 
+.img-container:hover .img-info,
+.img-container:hover .img-display-modal,
+.img-container:hover .img-selector {
+  display: inline-block;
+}
+
 img {
   display: block;
-  max-width: 400px;
-  max-height: 400px;
   opacity: 1;
   box-shadow: rgb(105, 105, 105) 2px 2px 1px;
   margin: 2px;
