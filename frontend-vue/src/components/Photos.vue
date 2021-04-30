@@ -4,17 +4,28 @@
       <photo :src="p.url" />
     </div>
   </div>
+  <!-- modal -->
+  <teleport to="body">
+    <modal-photo :open="clickedPhoto != null" :src="clickedPhoto" @close="closeModal()"/>
+  </teleport>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Photo from './Photo.vue'
+import ModalPhoto from './ModalPhoto.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default defineComponent({
   name: 'Photos',
   components: {
-    Photo
+    Photo,
+    ModalPhoto
+  },
+  data () {
+    return {
+      modalOpen: false
+    }
   },
   computed: {
     ...mapState({
@@ -22,6 +33,9 @@ export default defineComponent({
     })
   },
   methods: {
+    closeModal() {
+      this.modalOpen = false
+    },
     ...mapActions([
       'fetchPhotos'
     ])

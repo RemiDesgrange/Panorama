@@ -27,6 +27,7 @@ export interface NotificationStore {
 export interface State {
   photos: PhotoStore[]
   selectedPhotos: PhotoStore[]
+  clickedPhoto: String | null
   user: UserStore | null
   notifications: NotificationStore[],
   isSidebarActive: boolean,
@@ -36,6 +37,7 @@ export default createStore<State>({
   state: {
     photos: [],
     selectedPhotos: [],
+    clickedPhoto: null,
     user: null,
     notifications: [],
     isSidebarActive: false,
@@ -52,6 +54,9 @@ export default createStore<State>({
     },
     closeSidebarPanel(state) {
       state.isSidebarActive = false
+    },
+    setClickedPhoto(state, clickedPhoto) {
+      state.clickedPhoto = clickedPhoto
     }
   },
   getters: {
@@ -61,7 +66,7 @@ export default createStore<State>({
   },
   actions: {
     fetchPhotos({ state }) {
-      for (let x=400; x<=450; x++) {
+      for (let x=400; x<=410; x++) {
         state.photos.push({
           id: x.toString(),
           url: new URL(`https://picsum.photos/seed/${x}/1000/1000`)

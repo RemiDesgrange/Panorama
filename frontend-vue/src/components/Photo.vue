@@ -3,24 +3,22 @@
     <picture>
       <img
         :class="classList.join(' ')"
-        class="img-container"
+        class="img"
         :src="src"
         loading="lazy"
         @load="loaded()"
-        @click="modalOpen=true"
+        @click="clicked()"
       />
     </picture>
     <button class="img-info">info</button>
     <input type="checkbox" class="img-selector" v-model="isSelected">
   </div>
-  <!-- modal -->
-  <teleport to="body">
-    <modal-photo :open="modalOpen" :src="src" @close="modalOpen =false"/>
-  </teleport>
 </template>
 
 <script lang="ts">
+//$emit('photo-clicked', src)
 import { defineComponent } from "vue";
+import { mapMutations } from "vuex";
 import ModalPhoto from './ModalPhoto.vue';
 
 export default defineComponent({
@@ -42,8 +40,9 @@ export default defineComponent({
       }
     },
     methods: {
+      ...mapMutations(['setClickedPhoto']),
       clicked () {
-        console.log(`image ${this.src} clicked`)
+        this.setClickedPhoto(this.src)
       },
       loaded () {
         this.classList = this.classList.filter((c) => c !== 'loader')
@@ -54,7 +53,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.img-container {
+.img {
   position: relative;
   max-width: 400px;
   max-height: 400px;
@@ -90,7 +89,6 @@ export default defineComponent({
 }
 
 img {
-  display: block;
   opacity: 1;
   box-shadow: rgb(105, 105, 105) 2px 2px 1px;
   margin: 2px;
@@ -110,7 +108,7 @@ img {
   }
 }
 
-/* spinner fully css https://projects.lukehaas.me/css-loaders/  */
+/* spinner fully css https://projects.lukehaas.me/css-loaders/
 .loader,
 .loader:before,
 .loader:after {
@@ -167,5 +165,5 @@ img {
   40% {
     box-shadow: 0 2.5em 0 0;
   }
-}
+} */
 </style>
